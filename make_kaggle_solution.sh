@@ -12,13 +12,15 @@ set -e
 
 # Original images are expected to reside in data/{train,test}.
 # Convert them to 512x512 pixel images.
-#python convert.py --crop_size 512 --convert_directory data/train_medium --extension tiff --directory data/train
-#python convert.py --crop_size 512 --convert_directory data/test_medium --extension tiff --directory data/test
+python convert.py --crop_size 512 --convert_directory data/train_medium --extension tiff --directory data/train
+python convert.py --crop_size 512 --convert_directory data/test_medium --extension tiff --directory data/test
 
 # For the training set, make smaller images to train smaller versions of the 
 # convolutional networks.
 #python convert.py --crop_size 256 --convert_directory data/train_small --extension tiff --directory data/train_medium
 python convert.py --crop_size 128 --convert_directory data/train_tiny --extension tiff --directory data/train_medium
+
+echo "Converting done"
 
 ########## Train Convolutional Networks ##########
 
@@ -27,10 +29,14 @@ python convert.py --crop_size 128 --convert_directory data/train_tiny --extensio
 #python train_nn.py --cnf configs/c_256_5x5_32.py --weights_from weights/c_128_5x5_32/weights_final.pkl
 #python train_nn.py --cnf configs/c_512_5x5_32.py --weights_from weights/c_256_5x5_32/weights_final.pkl
 
+echo "Now training"
+
 # Train network with 4x4 kernels.
 python train_nn.py --cnf configs/c_128_4x4_32.py
 #python train_nn.py --cnf configs/c_256_4x4_32.py --weights_from weights/c_128_4x4_32/weights_final.pkl
 #python train_nn.py --cnf configs/c_512_4x4_32.py --weights_from weights/c_256_4x4_32/weights_final.pkl
+
+echo "Training done"
 
 ########## Extract Features ##########
 
@@ -45,11 +51,15 @@ python train_nn.py --cnf configs/c_128_4x4_32.py
 #python transform.py --cnf configs/c_512_5x5_32.py --train --test --n_iter 20 --skip 50
 #python transform.py --cnf configs/c_512_5x5_32.py --train --test --n_iter 20 --skip 100 --weights_from weights/c_512_5x5_32/weights_final.pkl
 
+echo "Extracting features"
+
 # Extract features for network with 4x4 kernels.
 BEST_VALID_WEIGHTS="$(ls -t weights/c_128_4x4_32/best/ | head -n 1)"
 python transform.py --cnf configs/c_128_4x4_32.py --train --test --n_iter 20 --weights_from weights/c_128_4x4_32/best/"$BEST_VALID_WEIGHTS"
 python transform.py --cnf configs/c_128_4x4_32.py --train --test --n_iter 20 --skip 50
 python transform.py --cnf configs/c_128_4x4_32.py --train --test --n_iter 20 --skip 100 --weights_from weights/c_128_4x4_32/weights_final.pkl
+
+echo "Extracting done"
 
 ########## Blend Features ##########
 

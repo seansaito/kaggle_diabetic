@@ -21,6 +21,8 @@ def main(cnf, weights_from):
     else:
         weights_from = str(weights_from)
 
+    print weights_from
+
     files = data.get_image_files(config.get('train_dir'))
     names = data.get_names(files)
     labels = data.get_labels(names).astype(np.float32)
