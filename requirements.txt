@@ -1,15 +1,15 @@
 click==3.3
+pandas==0.13.1
+numpy==1.11.2
 ghalton==0.6
 -e git+https://github.com/benanne/Lasagne.git@0fbadeba314ec2d162587c81c907d6e212042ee2#egg=Lasagne-dev
 matplotlib==1.4.3
 -e git+https://github.com/dnouri/nolearn.git@1f02036969d975f8ff8309949eebad9cdee3521d#egg=nolearn-master
-numpy==1.9.2
-pandas==0.16.0
 Pillow==2.7.0
--e git+git@github.com:lisa-lab/pylearn2.git@74fd21b77f24620de442768cd15f22ad06c7fa2c#egg=pylearn2-master
+-e git+https://github.com/lisa-lab/pylearn2.git@74fd21b77f24620de442768cd15f22ad06c7fa2c#egg=pylearn2-master
 PyYAML==3.11
 scikit-image==0.11.3
 scikit-learn==0.16.1
 scipy==0.15.1
-SharedArray==0.2
--e git+https://github.com/Theano/Theano.git#egg=Theano
+SharedArray==1.0
+-e git+https://github.com/Theano/Theano.git@079181cf9e503d61cb9cd830ddc87c81b01fbc6b#egg=Theano
