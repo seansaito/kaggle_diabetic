@@ -6,8 +6,8 @@ from layers import *
 
 cnf = {
     'name': __name__.split('.')[-1],
-    'w': 112,
-    'h': 112,
+    'w': 128,
+    'h': 128,
     'train_dir': 'data/train_tiny',
     'test_dir': 'data/test_tiny',
     'batch_size_train': 128,
